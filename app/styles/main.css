@@ -1,0 +1,32 @@
+body {background-color: #e4e4e4}
+.container {
+  padding: 0 25px;
+  background-color: #fff; 
+  -moz-box-shadow: 0px 0px 19px #666;
+  -webkit-box-shadow: 0px 0px 19px #666;
+  box-shadow: 0px 0px 19px #666;
+}
+.qa_form {margin-bottom: 45px; margin-top: 95px;}
+.qa_title {
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.qa_row {margin-bottom: 15px;}
+
+.form_filled {display: none}
+.qa_progress {
+  width: 300px;
+  position: absolute;
+  background-color: rgba(255, 255, 255, 0.95);
+}
+.qa_progress.affix,
+.qa_progress.affix-top,
+.qa_progress.affix-bottom {
+  z-index: 100;
+}
+.qa_progress.affix {
+  position: fixed; /* Undo the static from mobile-first approach */
+  top: 10px;
+}
+
