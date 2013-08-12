@@ -73,10 +73,10 @@
 					<div class="row qa_input" ng-switch="qa.input_type">
 
 						<input ng-switch-when="text"
-							   type="text" name="{{ qa.input_name }}" class="form-control" ng-model="qa.answer">
+							   type="text" name="{{ qa.input_name }}" class="form-control" ng-model="qa.answer" required  >
 
 						<textarea ng-switch-when="textarea"
-								  name="{{ qa.input_name }}" class="form-control" ng-model="qa.answer"></textarea>
+								  name="{{ qa.input_name }}" class="form-control" ng-model="qa.answer" required></textarea>
 					</div>
 					<!-- /Switch input type -->
 				</div>
