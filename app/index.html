@@ -1,8 +1,5 @@
 <!doctype html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<html ng-app>
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -11,36 +8,62 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link rel="stylesheet" href="bower_components/bootstrap3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="styles/animate.min.css">
+    
     <link rel="stylesheet" href="styles/main.css">
 
 </head>
-<body ng-app="yandexTask15App">
-    <!--[if lt IE 7]>
-      <p class="chromeframe">You are using an outdated browser. <a href="http://browsehappy.com/">Upgrade your browser today</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to better experience this site.</p>
-      <![endif]-->
+<body ng-controller="questionnaireCtrl">
+  <!--[if lt IE 7]>
+    <p class="chromeframe">У вас устаревший браузер. <a href="http://browsehappy.com/">Upgrade your browser today</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to better experience this site.</p>
+  <![endif]-->
 
-      <!--[if lt IE 9]>
-      <script src="bower_components/es5-shim/es5-shim.js"></script>
-      <script src="bower_components/json3/lib/json3.min.js"></script>
-      <![endif]-->
-
-      <!-- Add your site or application content here -->
-      <div class="container" ng-controller="questionnaireCtrl">
+  <!-- Add your site or application content here -->
+  <div class="container">
 
 		<div class="page-header">
 			<h2>Анкета второй Школы разработки интерфейсов в Москве</h2>
 		</div>
-      	<div class="row">
-      		<div class="col-lg-6 col-sm-6">
-		        <p>
-		            Яндекс открывает набор во вторую Школу разработки интерфейсов в Москве.
-				</p><p>
-		            Для поступления необходимо заполнить анкету с тестовыми заданиями. Приём заявок закрывается 19 августа в 23:59 по московскому времени. По результатам теста мы пригласим в Школу 30-40 человек.
-				</p><p>
-		            Подробности о Школе читайте <a href="http://company.yandex.ru/job/vacancies/shri_2013.xml" target="_blank" title="Подробности о второй Школе разработки интерфейсов в Москве">здесь</a>.
-		        </p>
-        	</div>
+  	<div class="row">
+  		<div class="col-lg-6 col-sm-6">
+        <p>
+            Яндекс открывает набор во вторую Школу разработки интерфейсов в Москве.
+		</p><p>
+            Для поступления необходимо заполнить анкету с тестовыми заданиями. Приём заявок закрывается 19 августа в 23:59 по московскому времени. По результатам теста мы пригласим в Школу 30-40 человек.
+		</p><p>
+            Подробности о Школе читайте <a href="http://company.yandex.ru/job/vacancies/shri_2013.xml" target="_blank" title="Подробности о второй Школе разработки интерфейсов в Москве">здесь</a>.
+        </p>
+    	</div>
+    </div>
+
+    <div class="row about_this">
+        <div class="col-lg-6 col-sm-6">
+          <button class="btn btn-default btn-sm" ng-click="toggleDetails()">Подробнее об анкете</button>
+          <div ng-show="showDetails" ng-animate="{show:'animated bounceIn', hide:'animated hinge'}">
+            <br><br>
+            <p>
+              В этой анкете реализованы следующие функции:
+            </p>
+            <ul>
+              <li>Адаптивная верстка: анкета хорошо смотрится как на большом экране, так и на экране планшета.</li>
+              <li>Прогресс заполнения анкеты.</li>
+              <li>Проверка заполнения полей.</li>
+              <li>Кеширование заполнения анкеты в (local) Web Storage.</li>
+            </ul>
+
+            <p>
+              Используемые технологии:
+            </p>
+            <ul>
+              <li>AngularJS – front-end фреймворк, в т.ч. шаблонизатор.</li>
+              <li>jQuery</li>
+              <li>Twitter Bootstrap 3</li>
+              <li>animate.css</li>
+              <li>ES5-shim, html5-shiv, json3 – поддержка браузеров IE 8, 9.</li>
+            </ul>
+          </div>
         </div>
+      </div>
 
 
 		<h3>Заполните анкету</h3>
@@ -58,47 +81,61 @@
 		<!-- /Progress bar -->
 
 
-        <form class="qa_form">
-          <fieldset>
-			
+    <form class="qa_form">
+      <fieldset>
+	
 			  <!-- Template -->
-			  <div ng-repeat="qa in questions"
-				 class="row qa_row">
-				<div class="col-lg-2 col-sm-2 qa_number">
-					Вопрос {{ $index + 1 }}
-				</div>
-				<div class="col-lg-4 col-sm-4">
-					<div class="row qa_title" ng-bind-html-unsafe="qa.name"></div>
-					<!-- Switch input type -->
-					<div class="row qa_input" ng-switch="qa.input_type">
+			  <div ng-repeat="qa in questions" class="row qa_row">
 
-						<input ng-switch-when="text"
-							   type="text" name="{{ qa.input_name }}" class="form-control" ng-model="qa.answer" required  >
+  				<div class="col-lg-2 col-sm-2 qa_number">
+  					Вопрос {{ $index + 1 }}
+  				</div>
+  				<div class="col-lg-4 col-sm-4">
+  					<div class="row qa_title" ng-bind-html-unsafe="qa.name"></div>
+  					<!-- Switch input type -->
+  					<div class="row qa_input" ng-switch="qa.input_type">
 
-						<textarea ng-switch-when="textarea"
-								  name="{{ qa.input_name }}" class="form-control" ng-model="qa.answer" required></textarea>
-					</div>
-					<!-- /Switch input type -->
-				</div>
+  						<input ng-switch-when="text"
+  							   type="text" name="{{ qa.input_name }}" class="form-control" ng-model="qa.answer" required  >
+
+  						<textarea ng-switch-when="textarea"
+  								  name="{{ qa.input_name }}" class="form-control" ng-model="qa.answer" required></textarea>
+  					</div>
+  					<!-- /Switch input type -->
+  				</div>
 			  </div>
 			  <!-- /Template -->
 			
 			  <div id="send" class="row">
 			    <div class="col-lg-4 col-sm-4">
 			      <button type="submit" class="btn btn-lg btn-primary" ng-click="send_questionnaire()">Отправить анкету</button>
+            <input type="reset" class="btn btn-warning" value="Очистить анкету">
 			    </div>
 			  </div>
-          </fieldset>            
-        </form>
+      </fieldset>            
+    </form>
 
+        
+        
 
     </div>
 
 
     <script src="bower_components/jquery/jquery.min.js"></script>
     <script src="bower_components/angular-unstable/angular.min.js"></script>
-    <script src="bower_components/angular-resource/angular-resource.min.js"></script>
     <script src="bower_components/bootstrap3/js/bootstrap.min.js"></script>
+    <!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+    <!-- ES5-shim and json3 are for AngularJS working properly. -->
+    <!--[if IE 8]> 
+      <script src="bower_components/bootstrap3/js/respond.min.js"></script>
+    <![endif]-->
+    <!--[if lt IE 9]>
+      <script src="bower_components/html5shiv/html5shiv.min.js"></script>
+      <script src="bower_components/es5-shim/es5-shim.js"></script>
+      <script src="bower_components/json3/lib/json3.min.js"></script>
+    <![endif]-->
+
+
     <script src="scripts/app.js"></script>
 </body>
 </html>

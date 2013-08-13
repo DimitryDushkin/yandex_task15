@@ -1,9 +1,24 @@
 'use strict';
 
-angular.module('yandexTask15App', []);
 
-angular.module('yandexTask15App')
-  .controller('questionnaireCtrl', function($scope) {
+function questionnaireCtrl($scope) {
+
+
+    function init() {
+      // load previous answers
+      if (supports_html5_storage()) {
+        if (localStorage['questions']) {
+          var qa = JSON.parse(localStorage['questions']);
+
+          angular.forEach($scope.questions, function(v, k) {
+            v['answer'] = qa[k]['answer'];
+          });
+
+        }
+        
+      }
+    }
+
 
     $scope.send_questionnaire = function() {
       // 1. Validate form
@@ -13,7 +28,7 @@ angular.module('yandexTask15App')
     $scope.$watch("questions", function() {
       var number_of_filled_questions = 0;
       angular.forEach($scope.questions, function (v, k) {
-        if (v.answer != '') {
+        if (v.answer) {
           number_of_filled_questions++;
         }
       });
@@ -25,6 +40,11 @@ angular.module('yandexTask15App')
       } else {
         $('.form_filled').fadeOut();
       }
+
+      // Now store answer
+      localStorage['questions'] = JSON.stringify($scope.questions);
+
+
     }, true);
     
 
@@ -111,6 +131,22 @@ angular.module('yandexTask15App')
       }
     ];
 
+    $scope.showDetails = false;
+    $scope.toggleDetails = function() {
+      $scope.showDetails = !$scope.showDetails;
+    }
 
 
-});
+    init();
+}
+
+
+
+
+function supports_html5_storage() {
+  try {
+    return 'localStorage' in window && window['localStorage'] !== null;
+  } catch (e) {
+    return false;
+  }
+}
