@@ -135,8 +135,7 @@ function questionnaireCtrl($scope) {
     $scope.toggleDetails = function() {
       $scope.showDetails = !$scope.showDetails;
     }
-
-
+    
     init();
 }
 
